@@ -1,11 +1,11 @@
 
-function sov(ms) {
+function sleep(ms) {
     return new Promise(func => setTimeout(func, ms))
 }
 
 async function doSomethingAsync() {
     console.log("Before sleep")
-    await sov(4000)
+    await sleep(4000)
     console.log("After sleep")
 }
 
