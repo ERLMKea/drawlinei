@@ -8,6 +8,10 @@
 <canvas width="600" height="300"></canvas>
 <script>
     const cx = document.querySelector("canvas").getContext("2d")
+    function sleep(ms) {
+        return new Promise(func => setTimeout(func, ms))
+    }
+
     function branch(length, angle, scale) {
         cx.fillRect(0,0,1,length)
         if (length < 8) return;
@@ -21,7 +25,6 @@
     }
     cx.translate(200, 0)
     cx.fillStyle = "rgb(150, 200, 60)"
-
     let red = 100;
     let green = 10;
     let blue = 200;
@@ -30,9 +33,27 @@
     blue = Math.round(Math.random()*255)
 
     cx.fillStyle = `rgb(${red}, ${green}, ${blue}`;
+    async function doDraw() {
+        console.log("start drawing")
+        await sleep(500)
+        red = Math.round(Math.random()*255)
+        green = Math.round(Math.random()*255)
+        blue = Math.round(Math.random()*255)
+        console.log("red = " + red)
+        console.log("green = " + green)
 
-    branch(60, 0.5, 0.8);
+        cx.fillStyle = `rgb(${red}, ${green}, ${blue}`;
+        branch(60, 0.5, 0.8);
 
+    }
+
+    async function callDoDraw() {
+        while(true) {
+            await doDraw();
+        }
+    }
+
+    callDoDraw();
 
 </script>
 
